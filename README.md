@@ -5,15 +5,25 @@ This is a simple calculator implemented using flex and bison.  This example is b
 ### What can this calculator do?
 
 The example shows how to make a simple infix calculator using EBNF grammars with bison and flex.
+
 Example strings:
+
 13 + 10;
+
 2^3 * 18;
+
 (4 + 5) / 2;
 
 Operator precedence and associativty:
+
 Higher
+
 %, ^
+
 +, - (unary)
+
 *, /
+
 +, -
+
 Lower
