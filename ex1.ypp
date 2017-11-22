@@ -1,4 +1,9 @@
 /********************************************************
+ * Derek and Ethan's super freaking awesome compiler
+ * compiler code.
+ * Based on code from https://www.usna.edu
+ ********************************************************/
+/********************************************************
  * ex1.ypp 
  ********************************************************/
 %{
@@ -12,6 +17,9 @@ using namespace std;
 int yylex(); 
 int yyerror(const char *p) { cerr << "Error!" << endl; }
 int powerof(int a, int b);
+ulong factorial(ulong n);
+ulong perm(ulong n, ulong r);
+ulong com(ulong n, ulong r);
 %}
 
 //-- SYMBOL SEMANTIC VALUES -----------------------------
@@ -20,8 +28,8 @@ int powerof(int a, int b);
   char sym;
 };
 %token <val> NUM
-%token <sym> OPA OPM OPMOD LP RP STOP
-%type  <val> exp term sfactor pow factor res
+%token <sym> OPA OPM OPMOD LP RP STOP FACT PC
+%type  <val> exp term sfactor pow factor res ffactor permcom
 
 //-- GRAMMAR RULES ---------------------------------------
 %%
@@ -32,14 +40,20 @@ res: exp STOP         { cout << $1 << endl; }
 exp: exp OPA term     { $$ = ($2 == '+' ? $1 + $3 : $1 - $3); }
 | term                { $$ = $1; }
 
-term: term OPM factor { $$ = ($2 == '*' ? $1 * $3 : $1 / $3); }
-| sfactor             { $$ = $1; }
+term: term OPM ffactor { $$ = ($2 == '*' ? $1 * $3 : $1 / $3); }
+| ffactor             { $$ = $1; }
+
+ffactor: sfactor FACT { $$ = factorial($1);}
+| sfactor
 
 sfactor: OPA pow      { $$ = ($1 == '+' ? $2 : -$2); }
 | pow                 { $$ = $1; }
 
-pow: sfactor OPMOD factor     { $$ = ($2 == '%' ? ($1 % $3) : powerof($1, $3));}
-| factor                      { $$ = $1; }
+pow: sfactor OPMOD permcom     { $$ = ($2 == '%' ? ($1 % $3) : powerof($1, $3));}
+| permcom                     { $$ = $1; }
+
+permcom: permcom PC factor {$$ = ($2 == 'P' ? perm($1, $3) : com($1, $3));}
+| factor
 
 factor: NUM           { $$ = $1; }
 | LP exp RP           { $$ = $2; }
@@ -60,4 +74,21 @@ int powerof(int a, int b)
 		sum *= a;
 
 	return sum;
+}
+
+ulong factorial(ulong n)
+{
+	if (n == 1)
+		return 1;
+	return factorial(n - 1) * n;
+}
+
+ulong perm(ulong n, ulong r)
+{
+	return factorial(n) / factorial(n - r);
+}
+
+ulong com(ulong n, ulong r)
+{
+	return factorial(n) / (factorial(r) * factorial(n - r)); 
 }

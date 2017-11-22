@@ -15,9 +15,11 @@ using namespace std;
 [\+|\-]  { yylval.sym = yytext[0]; return OPA; }
 [\*|/]   { yylval.sym = yytext[0]; return OPM; }
 [\%|\^]  {yylval.sym = yytext[0]; return OPMOD; }
+[P|C]    {yylval.sym = yytext[0]; return PC; }
 "("      { return LP; }
 ")"      { return RP; }
 ";"      { return STOP; }
+"!"      { return FACT; }
 <<EOF>>  { return 0; }
 [ \t\n]+ { }
 .        { cerr << "Unrecognized token!" << endl; exit(1); }
