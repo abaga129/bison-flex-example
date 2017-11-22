@@ -5,7 +5,7 @@ This is a simple infix calculator implemented using flex and bison.  This exampl
 ### What can this calculator do?
 
 The example shows how to make a simple infix calculator using EBNF grammars with bison and flex.
-Operators include addition(+), subtraction(-), negation(-), multiplication(\*), division(\), exponentiation(^), factorial(!), modulus(%), permutation(P), and composition(C).
+Operators include addition(+), subtraction(-), negation(-), multiplication(\*), division(\\), exponentiation(^), factorial(!), modulus(%), permutation(P), and composition(C).
 
 Example strings:
 
@@ -20,6 +20,7 @@ Example strings:
 Operator precedence and associativty:
 
 Higher
+
 P, C
 
 %, ^
