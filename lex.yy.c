@@ -793,7 +793,7 @@ YY_RULE_SETUP
 case 11:
 YY_RULE_SETUP
 #line 25 "ex1.l"
-{ cerr << "Unrecognized token!" << endl; exit(1); }
+{ cerr << "Shoot! There's an error in my boot. Wut in tarnation!\n" << endl; exit(1); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
