@@ -22,5 +22,5 @@ using namespace std;
 "!"      { return FACT; }
 <<EOF>>  { return 0; }
 [ \t\n]+ { }
-.        { cerr << "Unrecognized token!" << endl; exit(1); }
+.        { cerr << "Shoot! There's an error in my boot. Wut in tarnation!\n" << endl; exit(1); }
 %%
